@@ -1,0 +1,4 @@
+technicolor
+===========
+
+logging in colour
