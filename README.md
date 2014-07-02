@@ -1,4 +1,3 @@
-technicolor
-===========
+# technicolor
 
 logging in colour
