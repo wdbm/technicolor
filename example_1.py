@@ -3,15 +3,15 @@ import technicolor as technicolor
 
 def main():
 
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-    logger.addHandler(technicolor.ColorisingStreamHandler())
+    log = logging.getLogger()
+    log.setLevel(logging.DEBUG)
+    log.addHandler(technicolor.ColorisingStreamHandler())
 
-    logger.debug('message at level DEBUG')
-    logger.info('message at level INFO')
-    logger.warning('message at level WARNING')
-    logger.error('message at level ERROR')
-    logger.critical('message at level CRITICAL')
+    log.debug('message at level DEBUG')
+    log.info('message at level INFO')
+    log.warning('message at level WARNING')
+    log.error('message at level ERROR')
+    log.critical('message at level CRITICAL')
  
 if __name__ == '__main__':
     main()
