@@ -136,7 +136,7 @@ def log(function):
         result = function(*args, **kwargs)
         logging.debug("function '{functionName}' result: {result}\n".format(
             functionName = function.__name__,
-            result = result
+            result       = result
         ))
 
     return(decoration)
