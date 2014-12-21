@@ -31,6 +31,8 @@
 import ctypes
 import logging
 import os
+import inspect
+import functools
  
 class ColorisingStreamHandler(logging.StreamHandler):
 
@@ -69,7 +71,7 @@ class ColorisingStreamHandler(logging.StreamHandler):
     def emit(self, record):
         try:
             message = self.format(record)
-            stream = self.stream
+            stream  = self.stream
             if not self.istty:
                 stream.write(message)
             else:
@@ -110,7 +112,31 @@ class ColorisingStreamHandler(logging.StreamHandler):
         message = logging.StreamHandler.format(self, record)
         if self.istty:
             # Do not colorise traceback.
-            parts = message.split('\n', 1)
+            parts    = message.split('\n', 1)
             parts[0] = self.colorise(parts[0], record)
-            message = '\n'.join(parts)
-        return message
+            message  = '\n'.join(parts)
+        return(message)
+
+def log(function):
+
+    @functools.wraps(function)
+    def decoration(
+        *args,
+        **kwargs
+        ):
+        # Get the names of all of the function arguments.
+        arguments = inspect.getcallargs(function, *args, **kwargs)
+        logging.debug(
+            "function '{functionName}' called by '{callerName}' with arguments:"
+            "\n{arguments}".format(
+                functionName = function.__name__,
+                callerName   = inspect.stack()[1][3],
+                arguments    = arguments
+            ))
+        result = function(*args, **kwargs)
+        logging.debug("function '{functionName}' result: {result}\n".format(
+            functionName = function.__name__,
+            result = result
+        ))
+
+    return(decoration)
