@@ -28,6 +28,9 @@
 #                                                                              #
 ################################################################################
 
+name    = "technicolor"
+version = "2015-08-13T1548Z"
+
 import ctypes
 import logging
 import os
