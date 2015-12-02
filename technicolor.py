@@ -29,7 +29,7 @@
 ################################################################################
 
 name    = "technicolor"
-version = "2015-08-13T1548Z"
+version = "2015-12-02T1250Z"
 
 import ctypes
 import logging
