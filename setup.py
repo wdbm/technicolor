@@ -8,7 +8,7 @@ def main():
 
     setuptools.setup(
         name             = "technicolor",
-        version          = "2015.12.02.1250",
+        version          = "2016.01.12.1823",
         description      = "logging in colour",
         long_description = Markdown_to_reStructuredText("README.md"),
         url              = "https://github.com/wdbm/technicolor",

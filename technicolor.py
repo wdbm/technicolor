@@ -29,7 +29,7 @@
 ################################################################################
 
 name    = "technicolor"
-version = "2015-12-02T1250Z"
+version = "2016-01-12T1823Z"
 
 import ctypes
 import logging
@@ -40,35 +40,35 @@ import functools
 class ColorisingStreamHandler(logging.StreamHandler):
 
     # color names to indices
-    colorMap = {
-        'black':   0,
-        'red':     1,
-        'green':   2,
-        'yellow':  3,
-        'blue':    4,
-        'magenta': 5,
-        'cyan':    6,
-        'white':   7,
+    color_map = {
+        "black":   0,
+        "red":     1,
+        "green":   2,
+        "yellow":  3,
+        "blue":    4,
+        "magenta": 5,
+        "cyan":    6,
+        "white":   7,
     }
 
     # level colour specifications
     # syntax: logging.level: (background color, foreground color, bold)
-    levelMap = {
-        logging.DEBUG:    (None,   'blue',    False),
-        logging.INFO:     (None,   'white',   False),
-        logging.WARNING:  (None,   'yellow',  False),
-        logging.ERROR:    (None,   'red',     False),
-        logging.CRITICAL: ('red',  'white',   True),
+    level_map = {
+        logging.DEBUG:    (None,   "blue",    False),
+        logging.INFO:     (None,   "white",   False),
+        logging.WARNING:  (None,   "yellow",  False),
+        logging.ERROR:    (None,   "red",     False),
+        logging.CRITICAL: ("red",  "white",   True),
     }
 
     # control sequence introducer
-    CSI = '\x1b['
+    CSI = "\x1b["
 
     # normal colours
-    reset = '\x1b[0m'
+    reset = "\x1b[0m"
  
     def istty(self):
-        isatty = getattr(self.stream, 'isatty', None)
+        isatty = getattr(self.stream, "isatty", None)
         return isatty and isatty()
  
     def emit(self, record):
@@ -78,34 +78,34 @@ class ColorisingStreamHandler(logging.StreamHandler):
             if not self.istty:
                 stream.write(message)
             else:
-                self.outputColorised(message)
-            stream.write(getattr(self, 'terminator', '\n'))
+                self.output_colorized(message)
+            stream.write(getattr(self, "terminator", "\n"))
             self.flush()
         except (KeyboardInterrupt, SystemExit):
             raise
         except:
             self.handleError(record)
  
-    def outputColorised(self, message):
+    def output_colorized(self, message):
         self.stream.write(message)
  
-    def colorise(self, message, record):
-        if record.levelno in self.levelMap:
-            backgroundColor, \
-            foregroundColor, \
-            bold = self.levelMap[record.levelno]
+    def colorize(self, message, record):
+        if record.levelno in self.level_map:
+            background_color, \
+            foreground_color, \
+            bold = self.level_map[record.levelno]
             parameters = []
-            if backgroundColor in self.colorMap:
-                parameters.append(str(self.colorMap[backgroundColor] + 40))
-            if foregroundColor in self.colorMap:
-                parameters.append(str(self.colorMap[foregroundColor] + 30))
+            if background_color in self.color_map:
+                parameters.append(str(self.color_map[background_color] + 40))
+            if foreground_color in self.color_map:
+                parameters.append(str(self.color_map[foreground_color] + 30))
             if bold:
-                parameters.append('1')
+                parameters.append("1")
             if parameters:
-                message = ''.join((
+                message = "".join((
                     self.CSI,
-                    ';'.join(parameters),
-                    'm',
+                    ";".join(parameters),
+                    "m",
                     message,
                     self.reset
                 ))
@@ -114,10 +114,10 @@ class ColorisingStreamHandler(logging.StreamHandler):
     def format(self, record):
         message = logging.StreamHandler.format(self, record)
         if self.istty:
-            # Do not colorise traceback.
-            parts    = message.split('\n', 1)
-            parts[0] = self.colorise(parts[0], record)
-            message  = '\n'.join(parts)
+            # Do not colorize traceback.
+            parts    = message.split("\n", 1)
+            parts[0] = self.colorize(parts[0], record)
+            message  = "\n".join(parts)
         return(message)
 
 def log(function):
@@ -130,16 +130,16 @@ def log(function):
         # Get the names of all of the function arguments.
         arguments = inspect.getcallargs(function, *args, **kwargs)
         logging.debug(
-            "function '{functionName}' called by '{callerName}' with arguments:"
+            "function '{function_name}' called by '{caller_name}' with arguments:"
             "\n{arguments}".format(
-                functionName = function.__name__,
-                callerName   = inspect.stack()[1][3],
-                arguments    = arguments
+                function_name = function.__name__,
+                caller_name   = inspect.stack()[1][3],
+                arguments     = arguments
             ))
         result = function(*args, **kwargs)
-        logging.debug("function '{functionName}' result: {result}\n".format(
-            functionName = function.__name__,
-            result       = result
+        logging.debug("function '{function_name}' result: {result}\n".format(
+            function_name = function.__name__,
+            result        = result
         ))
 
     return(decoration)

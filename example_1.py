@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import logging
 import technicolor
 
@@ -14,15 +16,15 @@ def main():
     log.critical("message at level CRITICAL")
 
     log.info("using a function...")
-    function1(1, 2, c = 3)
+    function_1(1, 2, c = 3)
     log.info("using the function again...")
-    function1(2, 3)
+    function_1(2, 3)
     log.info("using the function again, this time via another function...")
-    function2()
+    function_2()
 
 # Use a decorator to indicate that the function use should be logged.
 @technicolor.log
-def function1(
+def function_1(
     a,
     b,
     c = 4,
@@ -31,8 +33,8 @@ def function1(
     ):
     return(a + b + c + d + e)
  
-def function2():
-    return(function1(1, 3))
+def function_2():
+    return(function_1(1, 3))
  
 if __name__ == '__main__':
     main()

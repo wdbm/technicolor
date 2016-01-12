@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import logging
 import technicolor
 import example_2_module
