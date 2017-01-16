@@ -20,7 +20,7 @@
 #                                                                              #
 # This program is distributed in the hope that it will be useful, but WITHOUT  #
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
-# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for    #
+# FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for     #
 # more details.                                                                #
 #                                                                              #
 # For a copy of the GNU General Public License, see                            #
@@ -29,7 +29,7 @@
 ################################################################################
 
 name    = "technicolor"
-version = "2016-01-12T1823Z"
+version = "2017-01-16T1544Z"
 
 import ctypes
 import logging
