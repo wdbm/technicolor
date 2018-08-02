@@ -15,12 +15,12 @@ def main():
     log.error("message at level ERROR")
     log.critical("message at level CRITICAL")
     log.info("use a function that results in an exception...")
-    function_1(a = 1)
+    function_1(a=1)
 
 @technicolor.log
 def function_1(a=None):
     try:
-        1/0
+        a/0
     except ZeroDivisionError as e:
         #log.critical("exception: " + str(e), exc_info=True)
         log.critical("exception: " + str(e))
